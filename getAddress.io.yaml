@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.0.2
 info:
   version: v1
-  title: api.getaddres.io
+  title: api.getaddress.io
   description: A simple API for finding postal addresses
   termsOfService: https://getaddress.io/terms
   contact:
@@ -9,290 +9,69 @@ info:
     url: https://getaddress.io
     email: support@getaddress.io
 paths:
-  /security/domain-whitelist:
+  "/autocomplete/{postcode}":
     get:
       tags:
-        - Domain Whitelist
-      operationId: AllowedDomain_Get_1
+        - Find
+      operationId: PostalAddress_GetV3_1
+      parameters:
+        - examples:
+          EH106SS:
+            value: EH106SS
+        - name: postcode
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: nameOrHouseNumber
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: boolean
       responses:
         "200":
-          description: Returns allowed domains
+          description: Returns postal addresses
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/AllowedDomainResponse"
-        "401":
-          description: Please use your admin key
-      security:
-        - admin-key: []
-    post:
-      tags:
-        - Domain Whitelist
-      operationId: AllowedDomain_Post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/AllowedDomainAddRequest"
-        required: true
-      responses:
-        "201":
-          description: "{name} has been added to your domain whitelist"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/MessageAndId"
+                $ref: "#/components/schemas/PostalAddressModel"
+            examples:
+              EH106SS:
+                value:
+                  - text: 8 Caiystane Drive, Edinburgh
+                    value: NzJlYzM1MzU4MTY1NTc4IDE5ODcyNDA4IGM2ODc3MzMwZDEyMWI3MQ==
+                  - text: 9 Caiystane Drive, Edinburgh
+                    value: MzRjYWY0ZmM3YjFiMWFlIDE5ODcyNDEyIGM2ODc3MzMwZDEyMWI3MQ==
+                  - text: 10 Caiystane Drive, Edinburgh
+                    value: ZDhkYmUzYWJkMDY0ZmVmIDE5ODcyNDE3IGM2ODc3MzMwZDEyMWI3MQ==
+                  - text: 11 Caiystane Drive, Edinburgh
+                    value: YjE4ZWM1OTIwNjBmMDc3IDE5ODcyNDIxIGM2ODc3MzMwZDEyMWI3MQ==
+                  - text: 13 Caiystane Drive, Edinburgh
+                    value: M2ZhNzAxYTM3NzRkMjhlIDE5ODcyNDI1IGM2ODc3MzMwZDEyMWI3MQ==
+                  - text: 15 Caiystane Drive, Edinburgh
+                    value: ZjgxNmI1N2YxNGViMTNjIDE5ODcyNDI5IGM2ODc3MzMwZDEyMWI3MQ==
         "400":
-          description: "{name} is not a valid URL"
+          description: Bad Request
         "401":
-          description: Please use your admin key
-        "409":
-          description: "{name} has been already been added to your domain whitelist"
+          description: "Unauthorized: Your admin key cannot be used for this resource"
+        "403":
+          description: Forbidden
+        "404":
+          description: NotFound
         "429":
-          description: Limit reached
+          description: Too many requests
       security:
-        - admin-key: []
-  "/security/domain-whitelist/{id}":
-    get:
-      tags:
-        - Domain Whitelist
-      operationId: AllowedDomain_Get_2
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Returns allowed domain
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AllowedDomainResponse"
-        "401":
-          description: Please use your admin key
-        "404":
-          description: domain could not be found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/MessageOnly"
-      security:
-        - admin-key: []
-    delete:
-      tags:
-        - Domain Whitelist
-      operationId: AllowedDomain_Delete
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: "{name} has been removed from your domain whitelist."
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/MessageOnly"
-        "400":
-          description: domain name is missing or empty
-        "401":
-          description: Please use your admin key
-        "404":
-          description: "{id} could not be found."
-      security:
-        - admin-key: []
-  /security/ip-address-whitelist:
-    get:
-      tags:
-        - IP Address Whitelist
-      operationId: AllowedIpAddress_Get_1
-      responses:
-        "200":
-          description: Returns allowed IP addresses
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/AllowedIpResponse"
-        "401":
-          description: Please use your admin key
-      security:
-        - admin-key: []
-    post:
-      tags:
-        - IP Address Whitelist
-      operationId: AllowedIpAddress_Post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/AllowedIpAddressAddRequest"
-        required: true
-      responses:
-        "201":
-          description: "{value} has been added to your IP address whitelist"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/MessageAndId"
-        "401":
-          description: Please use your admin key
-        "409":
-          description: "{value} has been already been added to your IP address whitelist"
-        "429":
-          description: Limit reached
-      security:
-        - admin-key: []
-  "/security/ip-address-whitelist/{id}":
-    get:
-      tags:
-        - IP Address Whitelist
-      operationId: AllowedIpAddress_Get_2
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Returns allowed IP address
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/AllowedIpResponse"
-        "401":
-          description: Please use your admin key
-        "404":
-          description: IP address could not be found
-      security:
-        - admin-key: []
-    delete:
-      tags:
-        - IP Address Whitelist
-      operationId: AllowedIpAddress_Delete
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: "'{value}' has been removed from your IP address whitelist"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/MessageOnly"
-        "401":
-          description: Please use your admin key
-        "404":
-          description: "'{id}' could not be found"
-      security:
-        - admin-key: []
-  /webhook/first-limit-reached:
-    get:
-      tags:
-        - First Limit Reached
-      operationId: FirstLimitWebhook_Get_1
-      responses:
-        "200":
-          description: Returns webhooks
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/WebhookResponse"
-        "401":
-          description: Please use your admin key
-      security:
-        - admin-key: []
-    post:
-      tags:
-        - First Limit Reached
-      operationId: FirstLimitWebhook_Post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/WebhookAddRequest"
-        required: true
-      responses:
-        "201":
-          description: "Webhook : '{url}' has been created"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/MessageAndId"
-        "400":
-          description: "{url} is not a valid URL"
-        "401":
-          description: Please use your admin key
-        "409":
-          description: "{url} is not a valid URL"
-      security:
-        - admin-key: []
-  "/webhook/first-limit-reached/{id}":
-    get:
-      tags:
-        - First Limit Reached
-      operationId: FirstLimitWebhook_Get_2
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Returns webhook
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/WebhookResponse"
-        "401":
-          description: Please use your admin key
-        "404":
-          description: webhook could not be found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/MessageOnly"
-      security:
-        - admin-key: []
-    delete:
-      tags:
-        - First Limit Reached
-      operationId: FirstLimitWebhook_Delete
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: "{url} has been removed from your webhooks"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/MessageOnly"
-        "400":
-          description: Invalid id
-        "401":
-          description: Please use your admin key
-        "404":
-          description: "{id} could not be found"
-      security:
-        - admin-key: []
+        - api-key: []
   "/find/{postcode}":
     get:
       tags:
@@ -383,171 +162,6 @@ paths:
           description: Too many requests
       security:
         - api-key: []
-  "/private-address/{postcode}":
-    get:
-      tags:
-        - Private Address
-      operationId: PrivateAddress_Get_1
-      parameters:
-        - name: postcode
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Returns private addresses
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/CustomerAddressesResponse"
-        "401":
-          description: Please use your admin key
-        "404":
-          description: "{id} could not be found."
-      security:
-        - admin-key: []
-    post:
-      tags:
-        - Private Address
-      operationId: PrivateAddress_Post
-      parameters:
-        - name: postcode
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/AddCustomerAddressRequest"
-        required: true
-      responses:
-        "201":
-          description: "'{postcode}/{id}' has been added to your private address list"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/MessageAndId"
-        "400":
-          description: Invalid postcode
-        "401":
-          description: Please use your admin key
-        "409":
-          description: Address exists
-  "/private-address/{postcode}/{id}":
-    get:
-      tags:
-        - Private Address
-      operationId: PrivateAddress_Get_2
-      parameters:
-        - name: postcode
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Returns private addresses
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CustomerAddressesResponse"
-        "400":
-          description: "{postcode|id} is missing or empty"
-        "401":
-          description: Please use your admin key
-        "404":
-          description: "'{postcode|id}' could not be found"
-      security:
-        - admin-key: []
-    delete:
-      tags:
-        - Private Address
-      operationId: PrivateAddress_Delete
-      parameters:
-        - name: postcode
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: "{id} has been removed from your private address list."
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/MessageOnly"
-        "401":
-          description: Please use your admin key
-        "404":
-          description: "{postcode} could not be found"
-  /v2/usage:
-    get:
-      tags:
-        - Usage
-      operationId: Usage_GetUsageV2_1
-      responses:
-        "200":
-          description: Returns daily usage
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Usage2"
-        "401":
-          description: Please use your admin key
-      security:
-        - admin-key: []
-  "/v2/usage/{day}/{month}/{year}":
-    get:
-      tags:
-        - Usage
-      operationId: Usage_GetUsageV2_2
-      parameters:
-        - name: day
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int32
-        - name: month
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int32
-        - name: year
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int32
-      responses:
-        "200":
-          description: Returns daily usage
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Usage2"
-        "401":
-          description: Please use your admin key
-      security:
-        - admin-key: []
-servers:
-  - url: https://api.getaddress.io
 components:
   securitySchemes:
     admin-key:
