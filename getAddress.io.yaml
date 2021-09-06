@@ -151,17 +151,6 @@ paths:
       # security:
       #   - api-key: []
 components:
-  securitySchemes:
-    admin-key:
-      type: apiKey
-      description: Administration API Key
-      name: api-key
-      in: query
-    api-key:
-      type: apiKey
-      description: API Key
-      name: api-key
-      in: query
   schemas:
     AllowedDomainAddRequest:
       type: object
