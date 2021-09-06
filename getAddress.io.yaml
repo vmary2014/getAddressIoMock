@@ -19,16 +19,11 @@ paths:
         - examples:
             KY118NX:
               value: KY118NX
-        - name: postcode
+          name: postcode
           in: path
           required: true
           schema:
             type: string
-        - name: expand
-          required: false
-          in: path
-          schema:
-            type: boolean
       responses:
         "200":
           description: Returns postal addresses
