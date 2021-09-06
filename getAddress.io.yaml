@@ -33,21 +33,21 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/AutoCompleteResponse"
-            examples:
-              EH106SS:
-                value:
-                  - text: 8 Caiystane Drive, Edinburgh
-                    value: NzJlYzM1MzU4MTY1NTc4IDE5ODcyNDA4IGM2ODc3MzMwZDEyMWI3MQ==
-                  - text: 9 Caiystane Drive, Edinburgh
-                    value: MzRjYWY0ZmM3YjFiMWFlIDE5ODcyNDEyIGM2ODc3MzMwZDEyMWI3MQ==
-                  - text: 10 Caiystane Drive, Edinburgh
-                    value: ZDhkYmUzYWJkMDY0ZmVmIDE5ODcyNDE3IGM2ODc3MzMwZDEyMWI3MQ==
-                  - text: 11 Caiystane Drive, Edinburgh
-                    value: YjE4ZWM1OTIwNjBmMDc3IDE5ODcyNDIxIGM2ODc3MzMwZDEyMWI3MQ==
-                  - text: 13 Caiystane Drive, Edinburgh
-                    value: M2ZhNzAxYTM3NzRkMjhlIDE5ODcyNDI1IGM2ODc3MzMwZDEyMWI3MQ==
-                  - text: 15 Caiystane Drive, Edinburgh
-                    value: ZjgxNmI1N2YxNGViMTNjIDE5ODcyNDI5IGM2ODc3MzMwZDEyMWI3MQ==
+              examples:
+                EH106SS:
+                  value:
+                    - text: 8 Caiystane Drive, Edinburgh
+                      value: NzJlYzM1MzU4MTY1NTc4IDE5ODcyNDA4IGM2ODc3MzMwZDEyMWI3MQ==
+                    - text: 9 Caiystane Drive, Edinburgh
+                      value: MzRjYWY0ZmM3YjFiMWFlIDE5ODcyNDEyIGM2ODc3MzMwZDEyMWI3MQ==
+                    - text: 10 Caiystane Drive, Edinburgh
+                      value: ZDhkYmUzYWJkMDY0ZmVmIDE5ODcyNDE3IGM2ODc3MzMwZDEyMWI3MQ==
+                    - text: 11 Caiystane Drive, Edinburgh
+                      value: YjE4ZWM1OTIwNjBmMDc3IDE5ODcyNDIxIGM2ODc3MzMwZDEyMWI3MQ==
+                    - text: 13 Caiystane Drive, Edinburgh
+                      value: M2ZhNzAxYTM3NzRkMjhlIDE5ODcyNDI1IGM2ODc3MzMwZDEyMWI3MQ==
+                    - text: 15 Caiystane Drive, Edinburgh
+                      value: ZjgxNmI1N2YxNGViMTNjIDE5ODcyNDI5IGM2ODc3MzMwZDEyMWI3MQ==
         "400":
           description: Bad Request
         "401":
