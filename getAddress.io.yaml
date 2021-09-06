@@ -12,33 +12,33 @@ paths:
   "/autocomplete/{postcode}":
     get:
       tags:
-        - Find
+        - Autocomplete
       operationId: AutocompletePostalAddress
       summary: Autocompletes the postcode lookup
       parameters:
         - examples:
-          EH106SS:
-            value: EH106SS
+            EH106SS:
+              value: EH106SS
         - name: postcode
           in: path
           required: true
           schema:
             type: string
-        - name: nameOrHouseNumber
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: format
-          in: query
-          required: false
-          schema:
-            type: boolean
-        - name: sort
-          in: query
-          required: false
-          schema:
-            type: boolean
+        # - name: nameOrHouseNumber
+        #   in: query
+        #   required: false
+        #   schema:
+        #     type: string
+        # - name: format
+        #   in: query
+        #   required: false
+        #   schema:
+        #     type: boolean
+        # - name: sort
+        #   in: query
+        #   required: false
+        #   schema:
+        #     type: boolean
       responses:
         "200":
           description: Returns postal addresses
