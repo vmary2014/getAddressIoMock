@@ -10,11 +10,11 @@ info:
     email: support@getaddress.io
 paths:
   "/find/{postcode}?{expand}":
-    summary: Autocompletes lookup - returns all postcodes/house numbers
+    summary: Find addresses per postcode
     get:
       tags:
-        - Autocomplete
-      operationId: AutocompletePostalAddress
+        - Find
+      operationId: FindPostalAddress
       parameters:
         - examples:
             KY118NX:
@@ -256,5 +256,3 @@ components:
             type: string
           country: 
             type: string
-          residential: 
-            type: boolean
