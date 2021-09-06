@@ -35,9 +35,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/FindResponse"
+                $ref: "#/components/schemas/FindResponse"
               examples:
                 KY118NX:
                   value:
@@ -205,7 +203,6 @@ paths:
                       county: Fife
                       district: Fife
                       country: Scotland
-
         "400":
           description: Bad Request
         "401":
@@ -216,8 +213,6 @@ paths:
           description: NotFound
         "429":
           description: Too many requests
-      # security:
-      #   - api-key: []
 components:
   schemas:
     FindResponse:
