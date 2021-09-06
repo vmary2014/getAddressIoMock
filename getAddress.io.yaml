@@ -18,7 +18,7 @@ paths:
       parameters:
         - examples:
             KY118NX:
-              value: EH106SS
+              value: KY118NX
         - name: postcode
           in: path
           required: true
@@ -29,7 +29,6 @@ paths:
           in: path
           schema:
             type: boolean
-
       responses:
         "200":
           description: Returns postal addresses
