@@ -45,7 +45,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PostalAddressModel"
+                type: array
+                items:
+                  $ref: "#/components/schemas/PostalAddressModel"
             examples:
               EH106SS:
                 value:
