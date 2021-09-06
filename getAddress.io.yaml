@@ -19,26 +19,11 @@ paths:
         - examples:
             EH106SS:
               value: EH106SS
-        - name: postcode
+          name: postcode
           in: path
           required: true
           schema:
             type: string
-        # - name: nameOrHouseNumber
-        #   in: query
-        #   required: false
-        #   schema:
-        #     type: string
-        # - name: format
-        #   in: query
-        #   required: false
-        #   schema:
-        #     type: boolean
-        # - name: sort
-        #   in: query
-        #   required: false
-        #   schema:
-        #     type: boolean
       responses:
         "200":
           description: Returns postal addresses
@@ -47,7 +32,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/PostalAddressModel"
+                  $ref: "#/components/schemas/AutoCompleteResponse"
             examples:
               EH106SS:
                 value:
@@ -227,6 +212,13 @@ components:
         id:
           type: string
         url:
+          type: string
+    AutoCompleteResponse:
+      type: object
+      properties:
+        text:
+          type: string
+        value:
           type: string
     PostalAddressModel:
       type: object
