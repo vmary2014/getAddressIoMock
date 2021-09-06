@@ -9,21 +9,27 @@ info:
     url: https://getaddress.io
     email: support@getaddress.io
 paths:
-  "/autocomplete/{postcode}":
+  "/find/{postcode}?{expand}":
+    summary: Autocompletes lookup - returns all postcodes/house numbers
     get:
       tags:
         - Autocomplete
       operationId: AutocompletePostalAddress
-      summary: Autocompletes the postcode lookup
       parameters:
         - examples:
-            EH106SS:
+            KY118NX:
               value: EH106SS
-          name: postcode
+        - name: postcode
           in: path
           required: true
           schema:
             type: string
+        - name: expand
+          required: false
+          in: path
+          schema:
+            type: boolean
+
       responses:
         "200":
           description: Returns postal addresses
@@ -32,114 +38,177 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/AutoCompleteResponse"
+                  $ref: "#/components/schemas/FindResponse"
               examples:
-                EH106SS:
+                KY118NX:
                   value:
-                    - text: 8 Caiystane Drive, Edinburgh
-                      value: NzJlYzM1MzU4MTY1NTc4IDE5ODcyNDA4IGM2ODc3MzMwZDEyMWI3MQ==
-                    - text: 9 Caiystane Drive, Edinburgh
-                      value: MzRjYWY0ZmM3YjFiMWFlIDE5ODcyNDEyIGM2ODc3MzMwZDEyMWI3MQ==
-                    - text: 10 Caiystane Drive, Edinburgh
-                      value: ZDhkYmUzYWJkMDY0ZmVmIDE5ODcyNDE3IGM2ODc3MzMwZDEyMWI3MQ==
-                    - text: 11 Caiystane Drive, Edinburgh
-                      value: YjE4ZWM1OTIwNjBmMDc3IDE5ODcyNDIxIGM2ODc3MzMwZDEyMWI3MQ==
-                    - text: 13 Caiystane Drive, Edinburgh
-                      value: M2ZhNzAxYTM3NzRkMjhlIDE5ODcyNDI1IGM2ODc3MzMwZDEyMWI3MQ==
-                    - text: 15 Caiystane Drive, Edinburgh
-                      value: ZjgxNmI1N2YxNGViMTNjIDE5ODcyNDI5IGM2ODc3MzMwZDEyMWI3MQ==
+                    postcode: KY11 8NX
+                    latitude: 56.0473575
+                    longitude: -3.4145963
+                    addresses:
+                    - formatted_address:
+                      - Atag Heating Eire Ltd
+                      - 1 Masterton Park
+                      - South Castle Drive
+                      - Dunfermline
+                      - Fife
+                      thoroughfare: South Castle Drive
+                      building_name: Masterton Park
+                      sub_building_name: Atag Heating Eire Ltd
+                      sub_building_number: ''
+                      building_number: '1'
+                      line_1: Atag Heating Eire Ltd
+                      line_2: 1 Masterton Park
+                      line_3: South Castle Drive
+                      line_4: ''
+                      locality: ''
+                      town_or_city: Dunfermline
+                      county: Fife
+                      district: Fife
+                      country: Scotland
+                    - formatted_address:
+                      - Clcb Holdings Ltd
+                      - 1 Masterton Park
+                      - South Castle Drive
+                      - Dunfermline
+                      - Fife
+                      thoroughfare: South Castle Drive
+                      building_name: Masterton Park
+                      sub_building_name: Clcb Holdings Ltd
+                      sub_building_number: ''
+                      building_number: '1'
+                      line_1: Clcb Holdings Ltd
+                      line_2: 1 Masterton Park
+                      line_3: South Castle Drive
+                      line_4: ''
+                      locality: ''
+                      town_or_city: Dunfermline
+                      county: Fife
+                      district: Fife
+                      country: Scotland
+                    - formatted_address:
+                      - Corgi Homeheat Ltd
+                      - 1 Masterton Park
+                      - South Castle Drive
+                      - Dunfermline
+                      - Fife
+                      thoroughfare: South Castle Drive
+                      building_name: Masterton Park
+                      sub_building_name: Corgi Homeheat Ltd
+                      sub_building_number: ''
+                      building_number: '1'
+                      line_1: Corgi Homeheat Ltd
+                      line_2: 1 Masterton Park
+                      line_3: South Castle Drive
+                      line_4: ''
+                      locality: ''
+                      town_or_city: Dunfermline
+                      county: Fife
+                      district: Fife
+                      country: Scotland
+                    - formatted_address:
+                      - Corgi Homeplan
+                      - 1 Masterton Park
+                      - South Castle Drive
+                      - Dunfermline
+                      - Fife
+                      thoroughfare: South Castle Drive
+                      building_name: Masterton Park
+                      sub_building_name: Corgi Homeplan
+                      sub_building_number: ''
+                      building_number: '1'
+                      line_1: Corgi Homeplan
+                      line_2: 1 Masterton Park
+                      line_3: South Castle Drive
+                      line_4: ''
+                      locality: ''
+                      town_or_city: Dunfermline
+                      county: Fife
+                      district: Fife
+                      country: Scotland
+                    - formatted_address:
+                      - George Wimpey East Scotland Ltd
+                      - 1 Masterton Park
+                      - South Castle Drive
+                      - Dunfermline
+                      - Fife
+                      thoroughfare: South Castle Drive
+                      building_name: Masterton Park
+                      sub_building_name: George Wimpey East Scotland Ltd
+                      sub_building_number: ''
+                      building_number: '1'
+                      line_1: George Wimpey East Scotland Ltd
+                      line_2: 1 Masterton Park
+                      line_3: South Castle Drive
+                      line_4: ''
+                      locality: ''
+                      town_or_city: Dunfermline
+                      county: Fife
+                      district: Fife
+                      country: Scotland
+                    - formatted_address:
+                      - Taylor Wimpey East Scotland
+                      - 1 Masterton Park
+                      - ''
+                      - Dunfermline
+                      - Fife
+                      thoroughfare: Masterton Park
+                      building_name: ''
+                      sub_building_name: Taylor Wimpey East Scotland
+                      sub_building_number: ''
+                      building_number: '1'
+                      line_1: Taylor Wimpey East Scotland
+                      line_2: 1 Masterton Park
+                      line_3: ''
+                      line_4: ''
+                      locality: ''
+                      town_or_city: Dunfermline
+                      county: Fife
+                      district: Fife
+                      country: Scotland
+                    - formatted_address:
+                      - Trade Heating Services Ltd
+                      - 1 Masterton Park
+                      - South Castle Drive
+                      - Dunfermline
+                      - Fife
+                      thoroughfare: South Castle Drive
+                      building_name: Masterton Park
+                      sub_building_name: Trade Heating Services Ltd
+                      sub_building_number: ''
+                      building_number: '1'
+                      line_1: Trade Heating Services Ltd
+                      line_2: 1 Masterton Park
+                      line_3: South Castle Drive
+                      line_4: ''
+                      locality: ''
+                      town_or_city: Dunfermline
+                      county: Fife
+                      district: Fife
+                      country: Scotland
+                    - formatted_address:
+                      - Veolia
+                      - 1 Masterton Park
+                      - South Castle Drive
+                      - Dunfermline
+                      - Fife
+                      thoroughfare: South Castle Drive
+                      building_name: Masterton Park
+                      sub_building_name: Veolia
+                      sub_building_number: ''
+                      building_number: '1'
+                      line_1: Veolia
+                      line_2: 1 Masterton Park
+                      line_3: South Castle Drive
+                      line_4: ''
+                      locality: ''
+                      town_or_city: Dunfermline
+                      county: Fife
+                      district: Fife
+                      country: Scotland
+
         "400":
           description: Bad Request
-        "401":
-          description: "Unauthorized: Your admin key cannot be used for this resource"
-        "403":
-          description: Forbidden
-        "404":
-          description: NotFound
-        "429":
-          description: Too many requests
-      # security:
-      #   - api-key: []
-  "/find/{postcode}":
-    get:
-      tags:
-        - Find
-      operationId: FindPostalAddress
-      parameters:
-        - name: postcode
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: nameOrHouseNumber
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: format
-          in: query
-          required: false
-          schema:
-            type: boolean
-        - name: sort
-          in: query
-          required: false
-          schema:
-            type: boolean
-      responses:
-        "200":
-          description: Returns postal addresses
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PostalAddressModel"
-        "400":
-          description: Bad Request
-        "401":
-          description: "Unauthorized: Your admin key cannot be used for this resource"
-        "403":
-          description: Forbidden
-        "404":
-          description: NotFound
-        "429":
-          description: Too many requests
-      # security:
-      #   - api-key: []
-  "/find/{postcode}/{nameOrHouseNumber}":
-    get:
-      tags:
-        - Find
-      operationId: PostalAddress_GetV3_2
-      parameters:
-        - name: postcode
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: nameOrHouseNumber
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: format
-          in: query
-          required: false
-          schema:
-            type: boolean
-        - name: sort
-          in: query
-          required: false
-          schema:
-            type: boolean
-      responses:
-        "200":
-          description: Returns postal addresses
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PostalAddressModel"
-        "400":
-          description: BadRequest
         "401":
           description: "Unauthorized: Your admin key cannot be used for this resource"
         "403":
@@ -152,130 +221,46 @@ paths:
       #   - api-key: []
 components:
   schemas:
-    AllowedDomainAddRequest:
+    FindResponse:
       type: object
       properties:
-        name:
+        postcode: 
           type: string
-    MessageAndId:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
-    AllowedDomainResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-    MessageOnly:
-      type: object
-      properties:
-        message:
-          type: string
-    AllowedIpAddressAddRequest:
-      type: object
-      properties:
-        value:
-          type: string
-    AllowedIpResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        value:
-          type: string
-    WebhookAddRequest:
-      required:
-        - url
-      type: object
-      properties:
-        url:
-          type: string
-    WebhookResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        url:
-          type: string
-    AutoCompleteResponse:
-      type: object
-      properties:
-        text:
-          type: string
-        value:
-          type: string
-    PostalAddressModel:
-      type: object
-      properties:
-        Latitude:
-          format: double
+        latitude: 
           type: number
-        Longitude:
-          format: double
+        longitude: 
           type: number
-        Addresses:
-          type: array
-          items:
-            type: string
-    AddCustomerAddressRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        line1:
-          type: string
-        line2:
-          type: string
-        line3:
-          type: string
-        line4:
-          type: string
-        locality:
-          type: string
-        townOrcity:
-          type: string
-        county:
-          type: string
-    CustomerAddressesResponse:
-      type: object
-      properties:
         addresses:
           type: array
-          items:
-            $ref: "#/components/schemas/CustomerAddressResponse"
-    CustomerAddressResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        line1:
-          type: string
-        line2:
-          type: string
-        line3:
-          type: string
-        line4:
-          type: string
-        locality:
-          type: string
-        townOrcity:
-          type: string
-        county:
-          type: string
-    Usage2:
-      type: object
-      properties:
-        count:
-          format: int64
-          type: integer
-        limit1:
-          format: int32
-          type: integer
-        limit2:
-          format: int32
-          type: integer
+          formatted_address: 
+            type: array
+          thoroughfare: 
+            type: string
+          building_name: 
+            type: string
+          sub_building_name:
+            type: string
+          sub_building_number: 
+            type: string
+          building_number: 
+            type: string
+          line_1: 
+            type: string
+          line_2: 
+            type: string
+          line_3: 
+            type: string
+          line_4: 
+            type: string
+          locality: 
+            type: string
+          town_or_city: 
+            type: string
+          county: 
+            type: string
+          district: 
+            type: string
+          country: 
+            type: string
+          residential: 
+            type: boolean
